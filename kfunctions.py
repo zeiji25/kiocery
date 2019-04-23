@@ -5,6 +5,7 @@ import time
 import re
 import mysql.connector
 from mysql.connector import MySQLConnection, Error
+import kivy
 
 def rfid_connect():   # Connect RFID
     try:
@@ -46,4 +47,4 @@ def scan(): # Disconnect RFID
             print(tags)
         print(len(tags))
     except Exception as e:
-        raise
+        print(e)
