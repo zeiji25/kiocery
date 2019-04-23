@@ -1,19 +1,17 @@
 import kivy
+kivy.require('1.9.0')
 
 from kivy.app import App
-from kivy.uix.button import Label
+from kivy.uix.floatlayout import FloatLayout
 
-# Inherit Kivy's App class which represents the window
-# for our widgets
-# HelloKivy inherits all the fields and methods
-# from Kivy
-class HelloKivy(App):
+# A Float layout positions and sizes objects as a percentage
+# of the window size
 
-    # This returns the content we want in the window
+class KioceryApp(App):
+
     def build(self):
+        return FloatLayout()
 
-        # Return a label widget with Hello Kivy
-        return Label(text="Hello Kivy")
+flApp = KioceryApp()
 
-helloKivy = HelloKivy()
-helloKivy.run()
+flApp.run()

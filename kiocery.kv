@@ -1,0 +1,16 @@
+# a percentage of 100% and height of the window
+<CustButton@Button>:
+    font_size: 32
+    color: 0, 0, 0, 1
+    size: 150, 50
+    background_normal: ''
+    background_down: 'bkgrd-down-color.png'
+    background_color: .88, .88, .88, 1
+    size_hint: .2, .1
+
+# pos_hint represents the position using either x, y, left,
+# right, top, bottom, center_x, or center_y
+<FloatLayout>:
+    CustButton:
+        text: "Center"
+        pos_hint: {"center_x": .5, "y": .1}
