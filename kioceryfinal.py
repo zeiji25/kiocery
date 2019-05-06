@@ -1,20 +1,59 @@
-import kivy
+import serial
+import serial.tools.list_ports
+import binascii
+import time
+import re
+import mysql.connector
+from itertools import groupby
+from mysql.connector import MySQLConnection, Error
 from kivy.app import App
+from kivy.lang import Builder
+from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
 from kivy.uix.label import Label
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.textinput import TextInput
-from kivy.uix.button import Button
 from kivy.uix.widget import Widget
+tags = []
+response = []
+final = []
 
+baud = 9600
+#ser = serial.Serial('COM7', baud, timeout= 0.2)
+#if ser.isOpen():
+#    print(ser.name + ' is open...')
+#    ser.write(serial.to_bytes([0x7C, 0xFF, 0xFF, 0x82, 0x32, 0x00, 0xD2]))
+#    response = binascii.hexlify(ser.read(41))
+#    response = str(response, 'UTF8')
+#    print(response)
+#    print("RFID Properly Initialized")
 
-class POS(Widget):
+class MainScreen(Screen):
+    pass
+
+class AnotherScreen(Screen):
+    pass
+
+class ScreenManagement(ScreenManager):
+    def scan(self): # Disconnect RFID
+            global tags, response, final
+            def regs(list):
+                regex_string = re.findall(r'(?<=01)30\d{22}(?=b)' , list)
+                return regex_string
+            for x in range(0, 15, 1):
+                ser.write(serial.to_bytes([0x7C, 0xFF, 0xFF, 0x11, 0x32, 0x00, 0x43]))
+                response = binascii.hexlify(ser.readline())
+                response = str(response, 'UTF8')
+                reduc = regs(response)
+                tags = list(set(tags).union(set(reduc)))
+            print('\n\n')
+            tags.sort()
+            print(tags)
+            print(len(tags))
     pass
 
 
-class KioceryApp(App): # <- Main Class
+presentation = Builder.load_file("kiocery.kv")
+
+class MainApp(App):
     def build(self):
-        return POS()
+        return presentation
 
-
-if __name__ == "__main__":
-    KioceryApp().run()
+MainApp().run()

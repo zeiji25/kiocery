@@ -1,23 +1,48 @@
-<POS>:
-    GridLayout:
-        cols:1
-        size: root.width, root.height
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import Label kivy.uix.label.Label
+ScreenManagement:
+    transition: FadeTransition()
+    MainScreen:
+    AnotherScreen:
 
-        GridLayout:
-            cols:2
+<Button>:
+    font_size: 32
+    color: 0, 0, 0, 1
+    background_normal: ''
+    background_down: 'bkgrd-down-color.png'
+    background_color: .88, .88, .88, 1
+    size_hint: .1, .1
 
-            Label:
-                text: "Name: "
+<MainScreen>:
+    name: 'main'
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'logo.jpg'
+            on_press: app.root.scan()
 
-            TextInput:
-                multinline:False
 
-            Label:
-                text: "Email: "
 
-            TextInput:
-                multiline:False
 
-        Button:
-            text:"Submit"
-            on_press: app.btn()
+
+<AnotherScreen>:
+    name: 'other'
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'logo.jpg'
+    Label:
+        text: 'Please put the items inside the scanning area then press SCAN'
+        font_size: 32
+        pos_hint: {"x": 0, 'y': 0.45}
+        color: 1,0,1,1
+    Button:
+        on_release: app.root.scan()
+        text: 'SCAN'
+        pos_hint: {"x": (.5-.05), 'y': 0}
+    Button:
+        on_release: app.root.current ='main'
+        text: 'BACK'
+        pos_hint: {"x": 0, 'y': 1-.1}

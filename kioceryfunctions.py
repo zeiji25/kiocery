@@ -5,7 +5,8 @@ import time
 import re
 import mysql.connector
 from mysql.connector import MySQLConnection, Error
-import kivy
+
+
 
 def rfid_connect():   # Connect RFID
     try:
@@ -19,25 +20,19 @@ def rfid_connect():   # Connect RFID
             print(response)
             if response == device_check:
                 print("RFID Properly Initialized")
-    except Error as e:
-        print(e)
-
 def rfid_disconnect(): # Disconnect RFID
     try:
         print("Program Closing")
         time.sleep(2)
         ser.close()
         print('closed')
-        break
-    except Error as e:
-        print(e)
 
 def scan(): # Disconnect RFID
     try:
         tags = []
         for x in range(0, 15, 1):
             ser.write(serial.to_bytes([0x7C, 0xFF, 0xFF, 0x11, 0x32, 0x00, 0x43]))
-            response = binascii.hexlify(ser.read(500))
+            response = binascii.hexlify(ser.readline())
             response = str(response, 'UTF8')
             for i in range(14, len(response), 28):
                 tags.append(response[i+2:i+26])
