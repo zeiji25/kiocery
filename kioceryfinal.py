@@ -17,4 +17,4 @@ class KioceryApp(App): # <- Main Class
 
 
 if __name__ == "__main__":
-    MyApp().run()
+    KioceryApp().run()
