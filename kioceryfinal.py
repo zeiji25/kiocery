@@ -13,7 +13,7 @@ class POS(Widget):
 
 class KioceryApp(App): # <- Main Class
     def build(self):
-        return MyGrid()
+        return POS()
 
 
 if __name__ == "__main__":
