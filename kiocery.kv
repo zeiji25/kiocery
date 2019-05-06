@@ -15,12 +15,15 @@ ScreenManagement:
 
 <MainScreen>:
     name: 'main'
-    canvas.before:
-        Rectangle:
-            pos: self.pos
-            size: self.size
-            source: 'logo.jpg'
-            on_press: app.root.scan()
+    VideoPlayer:
+        pos: self.pos
+        size: self.size
+        source: 'logo1.mp4'
+        state: 'play'
+        options:{'eos':'loop','allow_stretch':'True'}
+    Rectangle:
+            size_hint: {'x': 1, 'y': 1}
+            pos_hint: {"x": (.5-.05), 'y': 0}
 
 
 
