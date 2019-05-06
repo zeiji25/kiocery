@@ -1,17 +1,20 @@
 import kivy
-kivy.require('1.9.0')
-
 from kivy.app import App
-from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.label import Label
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.textinput import TextInput
+from kivy.uix.button import Button
+from kivy.uix.widget import Widget
 
-# A Float layout positions and sizes objects as a percentage
-# of the window size
 
-class KioceryApp(App):
+class POS(Widget):
+    pass
 
+
+class KioceryApp(App): # <- Main Class
     def build(self):
-        return FloatLayout()
+        return MyGrid()
 
-flApp = KioceryApp()
 
-flApp.run()
+if __name__ == "__main__":
+    MyApp().run()
