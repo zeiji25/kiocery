@@ -1,9 +1,11 @@
 #:import FadeTransition kivy.uix.screenmanager.FadeTransition
 #:import Label kivy.uix.label.Label
+#:import Factory kivy.factory.Factory
 ScreenManagement:
     transition: FadeTransition()
     MainScreen:
     POS:
+    Receipt:
 
 <MainScreen>:
     name: 'main'
@@ -20,25 +22,108 @@ ScreenManagement:
         font_size: 32
         background_color: 0, 0, 0, 1
         size_hint: 1,.04
+
+
+<Loading@Popup>:
+    title: 'Scanning'
+    size_hint: .3,.3
+    FloatLayout:
+        Label:
+            text: 'Scanning Complete'
+            font_size: 32
+            pos_hint: {'x':0,'y':0}
+        Button:
+            text: ' Close'
+            font_size: 15
+            size_hint: .2,.2
+            on_press: root.dismiss()
+            on_release: app.root.current= 'Receipt'
+            pos_hint: {'x':.8,'y':0}
+        MyPopupProgressBar:
+
+
 <POS>:
     name: 'POS'
-    orientation: 'vertical'
+    FloatLayout:
+        Button:
+            size_hint: 0.8,0.8
+            pos_hint: {'x': 0.1, 'y': 0.1}
+            background_color: 0, 1, 0, 1
+        Button:
+            size_hint: 0.425,0.7
+            pos_hint: {'x': 0.45, 'y': 0.15}
+            background_color: 1, 1, 1, 1
+        Image:
+            source: 'inst1.gif'
+            pos_hint: {"x": 0.125, 'y':.55}
+            size_hint: .3,.3
+            allow_stretch: True
+            keep_ratio: False
+        BoxLayout:
+            id: 'POS Header'
+            size_hint_x: 0.425
+            pos_hint:{"x": 0.45, 'y': 0.75}
+            Button:
+                text: 'Item Quantity'
+                size_hint: 0.3,0.1
+                background_color: 0, 0, 0,1
+            Button:
+                text: 'Item name'
+                size_hint_y:0.1
+                background_color: 0, 0, 0,1
+            Button:
+                text: 'Item Price'
+                size_hint: 0.3,0.1
+                background_color: 0, 0, 0, 1
+        BoxLayout:
+            id: 'Options'
+            size_hint_x: 0.325
+            pos_hint:{"x": 0.115, 'y': 0.15}
+            Button:
+                text:'Scan'
+                pos_hint: {"x": (0), 'y': 0}
+                font_size: 32
+                pos_hint: {"x": 0.4, 'y': 0}
+                size_hint: 0.1,0.1
+                on_press: Factory.Loading().open()
+    #           on_release: app.root.scan()
+            Button:
+                text:'Remove'
+                pos_hint: {"x": (0), 'y': 0}
+                font_size: 32
+                pos_hint: {"x": 0.4, 'y': 0}
+                size_hint: 0.1,0.1
+            Button:
+                text:'Pay'
+                pos_hint: {"x": (0), 'y': 0}
+                font_size: 32
+                pos_hint: {"x": 0.4, 'y': 0}
+                size_hint: 0.1,0.1
+
+<Receipt>
+    name: 'Receipt'
     canvas.before:
         Color:
-            rgba: (0,0,0, 0.5)
+            rgba: (1,1,1, 0.8)
         Rectangle:
             size: self.size
             pos: self.pos
-    Image:
-        source: 'inst1.gif'
-        pos_hint: {"x": .25, 'y':.4}
-        size_hint: .5,.5
-        allow_stretch: True
-        keep_ratio: True
-    Button:
-        text:'Scan'
-        pos_hint: {"x": (0), 'y': 0}
-        font_size: 32
-        pos_hint: {"x": 0.4, 'y': 0}
-        size_hint: 0.25,0.25
-        on_release: app.root.scan()
+    BoxLayout:
+        id: 'header'
+        pos_hint:{"x": 0, 'y': 0.9}
+        Button:
+            text: 'Item Quantity'
+            size_hint: 0.3,0.1
+        Button:
+            text: 'Item name'
+            size_hint_y:0.1
+        Button:
+            text: 'Item Price'
+            size_hint: 0.3,0.1
+    # BoxLayout:
+    #     id: 'subheading'
+    #     size_hint_y: 0.5
+    #     orientation: 'horizontal'
+    #     Button:
+    #         text: 'Item Quantity'
+    #         size_hint_x: 0.3
