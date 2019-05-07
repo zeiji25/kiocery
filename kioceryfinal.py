@@ -18,6 +18,9 @@ from kivy.uix.videoplayer import VideoPlayer
 from kivy.core.image import zipfile
 from kivy.uix.video import Video
 from kivy.uix.scatter import Scatter
+from kivy.uix.boxlayout import BoxLayout
+from kivy.core.window import Window
+Window.maximize()
 tags = []
 response = []
 final = []
@@ -49,11 +52,9 @@ def scan(self): # Disconnect RFID
         print(len(tags))
 
 class MainScreen(Screen):
-    def on_touch_down(self, touch):
-        scan(self)
     pass
 
-class AnotherScreen(Screen):
+class POS(Screen):
     pass
 
 class ScreenManagement(ScreenManager):
